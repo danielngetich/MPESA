@@ -4,8 +4,8 @@ const createToken=async(req,res,next)=>{
 const secret="WgvqFC7q6HLmnm7l";
 const consumer ="6YAlJdx1dNNddtyTSCEdkJG4xJF7BP95";
 const auth=new Buffer.from(`${consumer}:${secret}`).toString("base64");
-await axios.post(
-    "https://sandbox.safaricom.co.ke/oauth/v1/generate",
+await axios.get(
+    "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
     {
         headers:{
             authorization:`Basic ${auth}`,
