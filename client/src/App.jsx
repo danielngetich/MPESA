@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./index.css";
+import Axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [phone, setPhone] = useState();
+  const [amount, setAmount] = useState();
 
+  const payHandler = (event) => {
+    event.preventDefault();
+    Axios.post("http://localhost:5000/token", {
+      amount,
+      phone,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+       console.log(error);
+      });
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="  mt-10 justify-center items-center  flex flex-col">
+      <h1 className="text-2xl">
+        Pay with <span className="text-green-600  font-bold">Mpesa</span>{" "}
+      </h1>
+      <form className="flex flex-col space-y-5">
+        <input
+          placeholder="phone"
+          onChange={(e) => setPhone(e.target.value)}
+          className=" bg-slate-100 text-center rounded-xl"
+        />
+        <input
+          placeholder="Amount"
+          onChange={(e) => setAmount(e.target.value)}
+          className=" bg-slate-100 text-center rounded-xl"
+        />
+        <button
+          onClick={payHandler}
+          className="bg-green-600 text-white px-2 py-1 rounded-2xl"
+        >
+          Pay Now
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </form>
+    </div>
+  );
 }
 
-export default App
+export default App;
