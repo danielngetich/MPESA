@@ -2,8 +2,8 @@ const express=require("express");
 
 const router=express.Router();
 
-const {createToken}=require("../controller/token");
+const {createToken, stkPush}=require("../controller/token");
 
-router.get("/",createToken);
+router.post("/",createToken,stkPush);
 
 module.exports=router
